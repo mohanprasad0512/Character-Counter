@@ -1,0 +1,340 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Variables ── */
+:root {
+  --bg:          #faf8f3;
+  --paper:       #fffef9;
+  --border:      #e0d9cc;
+  --accent:      #c8612a;
+  --accent2:     #2a6bc8;
+  --text:        #1a1612;
+  --muted:       #8a8070;
+  --warning-bg:  #fff5ed;
+  --warning:     #c8612a;
+  --danger-bg:   #fff0ed;
+  --danger:      #c82a2a;
+  --success:     #2a8c5a;
+  --ink-line:    #ddd5c4;
+}
+
+/* ── Body ── */
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 10% 90%, rgba(200,97,42,0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(42,107,200,0.04) 0%, transparent 40%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Serif 4', serif;
+  color: var(--text);
+  padding: 2rem;
+}
+
+/* ── Page Wrapper ── */
+.page {
+  width: 100%;
+  max-width: 640px;
+  animation: fadeIn 0.7s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--ink-line);
+  padding-bottom: 1.5rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── Composer Card ── */
+.composer {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.06),
+    0 4px 20px rgba(0,0,0,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ruled paper lines */
+.composer::before {
+  content: '';
+  position: absolute;
+  top: 56px;
+  left: 0; right: 0; bottom: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    var(--ink-line) 27px,
+    var(--ink-line) 28px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* ── Composer Header ── */
+.composer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(250,248,243,0.8);
+  position: relative;
+  z-index: 1;
+}
+
+.composer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.max-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* ── Textarea ── */
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 260px;
+  padding: 24px 24px 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 28px;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s;
+}
+
+textarea::placeholder { color: #c4bdb0; font-style: italic; }
+textarea:disabled      { cursor: not-allowed; }
+
+/* ── Composer Footer ── */
+.composer-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(250,248,243,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s;
+}
+
+/* ── Progress Ring ── */
+.ring-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+.ring-wrap svg {
+  transform: rotate(-90deg);
+  width: 44px;
+  height: 44px;
+}
+.ring-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 3.5;
+}
+.ring-fill {
+  fill: none;
+  stroke: var(--accent2);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 113;
+  stroke-dashoffset: 113;
+  transition: stroke-dashoffset 0.35s cubic-bezier(0.4,0,0.2,1), stroke 0.35s;
+}
+.ring-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.3s;
+}
+
+/* ── Counter ── */
+.counter-block { flex: 1; }
+
+.counter-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 3px;
+  transition: color 0.3s;
+}
+
+.counter-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+  transition: color 0.3s;
+}
+
+/* ── Buttons ── */
+.actions { display: flex; gap: 8px; }
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 3px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid;
+}
+
+.btn-clear {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+.btn-clear:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-send {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--paper);
+  letter-spacing: 0.05em;
+}
+.btn-send:hover    { background: var(--accent2); border-color: var(--accent2); }
+.btn-send:disabled { background: var(--border); border-color: var(--border); color: var(--muted); cursor: not-allowed; }
+
+/* ── Banners ── */
+.banner {
+  margin: 0 20px 16px;
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-size: 0.83rem;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+.banner.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.banner-warn {
+  background: var(--warning-bg);
+  border: 1px solid rgba(200,97,42,0.3);
+  color: var(--warning);
+}
+
+.banner-danger {
+  background: var(--danger-bg);
+  border: 1px solid rgba(200,42,42,0.35);
+  color: var(--danger);
+  font-style: italic;
+}
+
+/* ── Watermark ── */
+.watermark {
+  text-align: right;
+  padding: 0 20px 12px;
+  position: relative;
+  z-index: 1;
+}
+.watermark span {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: rgba(26,22,18,0.04);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+/* ── State Modifiers ── */
+body.warn-mode .ring-fill        { stroke: #e0a030; }
+body.warn-mode .counter-main     { color: var(--warning); }
+body.warn-mode .watermark span   { color: rgba(200,97,42,0.06); }
+
+body.danger-mode .ring-fill        { stroke: var(--danger); }
+body.danger-mode .counter-main     { color: var(--danger); }
+body.danger-mode textarea          { background: rgba(255,240,237,0.25); }
+body.danger-mode .composer-footer  { background: rgba(255,240,237,0.5); }
+body.danger-mode .watermark span   { color: rgba(200,42,42,0.07); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--text);
+  color: var(--paper);
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-style: italic;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

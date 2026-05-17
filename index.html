@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Counter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <span class="tag">Message Composer</span>
+    <h1>Write your message.</h1>
+    <p class="desc">Every word counts. Compose with intention.</p>
+  </div>
+
+  <div class="composer" id="composer">
+
+    <div class="composer-header">
+      <span class="composer-title">New Message</span>
+      <span class="max-label" id="maxLabel">200 characters max</span>
+    </div>
+
+    <textarea
+      id="msgArea"
+      placeholder="Start writing here… your thoughts, beautifully bounded."
+      maxlength="200"
+    ></textarea>
+
+    <div class="watermark"><span id="watermarkNum">200</span></div>
+
+    <div class="banner banner-warn" id="warnBanner">
+      ✦ Almost there — only <strong id="warnRemaining"></strong> characters remaining.
+    </div>
+    <div class="banner banner-danger" id="dangerBanner">
+      ✗ Character limit reached. Your message cannot be longer than 200 characters.
+    </div>
+
+    <div class="composer-footer">
+
+      <div class="ring-wrap" title="Characters used">
+        <svg viewBox="0 0 44 44">
+          <circle class="ring-track" cx="22" cy="22" r="18"/>
+          <circle class="ring-fill" id="ringFill" cx="22" cy="22" r="18"/>
+        </svg>
+        <div class="ring-pct" id="ringPct">0%</div>
+      </div>
+
+      <div class="counter-block">
+        <div class="counter-main" id="counterMain">0 / 200</div>
+        <div class="counter-sub"  id="counterSub">200 characters remaining</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-clear" id="clearBtn">Clear</button>
+        <button class="btn btn-send"  id="sendBtn" disabled>Send</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✦ Message sent!</div>
+
+<script src="script.js"></script>
+</body>
+</html>
